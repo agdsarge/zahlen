@@ -60,7 +60,7 @@ class Natural
         elsif nat_b.literal == [[]]
             return self
         elsif self.literal == [[]]
-            return self
+            return nat_b
         else
             self.add(self.multiply(nat_b.previous))
         end

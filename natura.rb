@@ -1,5 +1,4 @@
 require 'set'
-require 'pry'
 
 class Set
 def literal_successor
@@ -7,17 +6,14 @@ def literal_successor
 end
 
 def literal_predecessor
-    #return biggest
-    arr = self.map {|x| x}
-    arr.sort! {|e1, e2| s1 < s2 ? -1 : (s2 < s1 ? 1 : 0)}
-    arr[-1]
+    self.to_a.sort! {|s1, s2| s1 < s2 ? -1 : (s2 < s1 ? 1 : 0)}[-1]
 end
 
 end
 
 class Natura
     attr_reader :translation, :literal
-    @@all_literals = [Set[]]
+    @@all_literals = [Set[]] #P1. Zero is a natural number
     @@all = []
     def initialize(translation=nil, literal=nil)
 
@@ -46,12 +42,13 @@ class Natura
     end
 
     def n_add(nat_b)
+        raise "arg must be Natura" unless nat_b.class == Natura
         if nat_b.literal == Set[]
             return self
         elsif self.literal == Set[]
             return nat_b
         else
-            self.literal_successor.n_add(nat_b.literal_predecessor)
+            self.next.n_add(nat_b.previous)
         end
     end
 
@@ -59,33 +56,31 @@ class Natura
         self.n_add(nat_b)
     end
 
-    private
+    def n_multiply(nat_b)
+        raise "arg must be Natura" unless nat_b.class == Natura
+        if nat_b.literal == Set[]
+            return nat_b
+        elsif nat_b.literal == Set[Set[]]
+            return self
+        elsif self.literal == Set[]
+            return self
+        elsif self.literal == Set[Set[]]
+            return nat_b
+        else
+            self.n_add(self.n_multiply(nat_b.previous))
+        end
+    end
+
+    def *(nat_b)
+        self.n_multiply(nat_b)
+    end
+
+    def next
+        Natura.new(nil, self.literal.literal_successor)
+    end
+
+    def previous
+        Natura.new(nil, self.literal.literal_predecessor)
+    end
 
 end
-zero = Natura.new(0, Set[])
-fifteen = Natura.new(15, nil)
-
-
-du = Natura.new(2,nil)
-zwei = Natura.new(nil, Set[Set[], Set[Set[]]])
-
-x = du.n_add(zero)
-print x.translation
-
-y = du + zero
-print y.translation
-
-#fah = du.n_add(zwei)
-#print fah.translation
-
-
-
-#buzz = Natura.new(nil, nil)
-
-
-# emp = Set[]
-# wun = emp.union(Set[emp])
-
-## du = Natura(2,)
-## zwei = Natura(,Set[Set[], Set[Set[]]])
-##

@@ -1,32 +1,34 @@
-require_relative "./naturliche.rb"
+require_relative "./natura.rb"
 require_relative "./ordered_pairs.rb"
 require 'pry'
+require 'set'
 
 
+class Zahl
+    @@all = []
 
-class Zahlen
-    @zero = Natural.new(0)
-    @@some = []
+    attr_reader :translation
 
-    attr_reader :translation, :literal
+    def initialize(translation=nil, ord_pr=nil)
+        raise "Invalid input - no args" unless translation or literal
+        @literal = Set[]
+        if translation
+            raise "Invalid input - arg1 type" unless translation.class == Integer
+            @translation = translation
+            if translation >= 0
+                @literal << Ordered_Pair.new(Natura(translation), Natura(0))
+            else
+                @literal << Ordered_Pair.new(Natura(0), Natura, translation)
+            end
 
-    def initialize(ord_pr)          #self.some is an array of zahl_objs
-        eqs = @@some.find {|z| z.literal[0].zahl_equiv_relation(ord_pr)}
-
-        if eqs
-            eqs.literal << ord_pr
-            binding.pry
-            eqs
         else
-            @translation = ord_pr.second_term.translation - ord_pr.first_term.translation
-            @literal = [ord_pr]
-            @@some << self
-        end
 
-        eqs
+        end
     end
 
+    def literal
 
+    end
 
     # def self.construct_from_natural(n_obj)
     #     Zahlen.new(Ordered_Pair.new(@zero, n_obj))
@@ -38,32 +40,18 @@ class Zahlen
     #multiply
     #negation
 
-    def self.some
-         @@some
+    def z_add(zahl_b)
+        #<a,b> + <c,d> = <a+c, b+d>
+        self.literal.to_a[0].first_term.n_add(zahl_b.literal.to_a)
+
+    def self.all
+         @@all
     end
 end
 
-alpha = Natural.new(5)
-beta = Natural.new(3)
-
-gamma = Natural.new(4)
-delta = Natural.new(2)
-
-
-pair1 = Ordered_Pair.new(alpha, beta)
-pair2 = Ordered_Pair.new(gamma, delta)
-
-zp1 = Zahlen.new(pair1)
-puts zp1.translation
-puts "<><><><><><<<><><><><><><<"
-zp2 = Zahlen.new(pair2)
-puts zp2.literal
-
-puts "&&&&&&&&&&&&&&&&&&&&&&&&&&&"
-#zdelt = Zahlen.construct_from_natural(delta)
-#puts zdelt.literal
-#puts zdelt.translation
-
+#first test
+#x = Zahl.new(1)
+#x.literal
 
 
 #check_some to see if one is there
