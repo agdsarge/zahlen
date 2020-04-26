@@ -8,15 +8,15 @@ beta = Natural.new(3)
 gamma = Natural.new(4)
 delta = Natural.new(2)
 
-pair1 = Ordered_Pair.new(alpha, beta)
-pair2 = Ordered_Pair.new(gamma, delta)
+#pair1 = Ordered_Pair.new(alpha, beta)
+#pair2 = Ordered_Pair.new(gamma, delta)
 
 #pair1.pretty_print
 #pair2.pretty_print
 #puts pair1.zahl_equiv_relation(pair2)
 
 zdelt = Zahlen.construct_from_natural(delta)
-puts zdelt.notation
+puts zdelt.literal
 puts zdelt.translation
 
 
@@ -28,5 +28,5 @@ puts zdelt.translation
 #print Natural.my_set_o_naturals[-1]
 #puts "\n\n"
 #puts alpha.translation
-#print alpha.notation
-#puts alpha.notation.length == alpha.translation
+#print alpha.literal
+#puts alpha.literal.length == alpha.translation

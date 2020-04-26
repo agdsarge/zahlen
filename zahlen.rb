@@ -8,20 +8,22 @@ class Zahlen
     @zero = Natural.new(0)
     @@some = []
 
-    attr_reader :translation, :notation
+    attr_reader :translation, :literal
 
     def initialize(ord_pr)          #self.some is an array of zahl_objs
-        eqs = @@some.find {|z| z.notation[0].zahl_equiv_relation(ord_pr)}
+        eqs = @@some.find {|z| z.literal[0].zahl_equiv_relation(ord_pr)}
 
         if eqs
-            eqs.notation << ord_pr
+            eqs.literal << ord_pr
+            binding.pry
+            eqs
         else
             @translation = ord_pr.second_term.translation - ord_pr.first_term.translation
-            @notation = [ord_pr]
+            @literal = [ord_pr]
             @@some << self
         end
-        
 
+        eqs
     end
 
 
@@ -55,10 +57,11 @@ zp1 = Zahlen.new(pair1)
 puts zp1.translation
 puts "<><><><><><<<><><><><><><<"
 zp2 = Zahlen.new(pair2)
-puts zp2.notation
+puts zp2.literal
+
 puts "&&&&&&&&&&&&&&&&&&&&&&&&&&&"
 #zdelt = Zahlen.construct_from_natural(delta)
-#puts zdelt.notation
+#puts zdelt.literal
 #puts zdelt.translation
 
 
