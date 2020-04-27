@@ -1,5 +1,5 @@
 # zahlen
 i try to construct things
 
-Very inefficiently, I construct the Rational numbers.
-The process mimics formal set-theoretic construction.
+Very inefficiently, I construct the Rational numbers. All Rational operations work, too.
+The process and definitions mimic formal set-theoretic constructions.
