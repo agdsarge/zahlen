@@ -1,7 +1,4 @@
 require 'pry'
-require_relative './natura.rb'
-require_relative './zahlen.rb'
-
 class Ordered_Pair
 
     @@all_z = Set[]
@@ -12,7 +9,7 @@ class Ordered_Pair
         @first_term, @second_term = term1, term2
         if term1.class == Natura and term2.class == Natura
             idiot_var = true
-            @@all_z.each do |equi_cls| #every e is a zahl if it exists
+            @@all_z.each do |equi_cls| #every e.c. is a zahl if it exists
                 if self.zahl_equiv_relation(equi_cls.literal.to_a[0])
                     equi_cls.literal << self unless self.first_term.literal == equi_cls.literal.to_a[0].first_term.literal
                     @zahlen = equi_cls
@@ -21,14 +18,30 @@ class Ordered_Pair
                 end
             end
             if idiot_var
-                z_translation = first_term.translation - second_term.translation
+                z_translation = self.first_term.translation - self.second_term.translation
                 z = Zahl.new(z_translation, Set[self])
                 @zahlen = z
                 @@all_z << z
-                #Zahl.new(z_translation, Set[self])
             end
         end
 
+        if term1.class == Zahl and term2.class == Zahl and term2.translation != 0
+            idiot_var = true
+            @@all_q.each do |equi_cls| #if it exists, every e.c. is a quoziente
+                if self.quoz_equivalent_relation(equi_cls.literal.to_a[0])
+                    equi_cls.literal << self unless self.first_term.literal == equi_cls.literal.to_a[0].first_term.literal
+                    @quoziente = equi_cls
+                    idiot_var = false
+                    break
+                end
+            end
+            if idiot_var
+                q_translation = "#{self.first_term.translation} / #{self.second_term.translation}"
+                q = Quoziente.new(q_translation, Set[self])
+                @quoziente = q
+                @@all_q << q
+            end
+        end
     end
 
     def zahl_equiv_relation(op2)
@@ -39,15 +52,16 @@ class Ordered_Pair
         ad.literal == bc.literal #q and w are separate instances, so we compare the literals
     end
 
-
-    # def quoz_equivalent_relation(op2)
-    #     #check if selfterm1 * op2term2 == selfterm2 * op2term2
-    #     ad = self.first_term.z_mult(op2.second_term)
-    #     bc = self.second_term.z_mult(op2.first_term)
-    #     ad.literal == bc.literal
-    # end
-
-    #every ordered pair of integers has an associated integer
+     def quoz_equivalent_relation(op2)
+        puts "..."
+        p1 = self.first_term
+        q1 = self.second_term
+        p2 = op2.first_term
+        q2 = op2.second_term
+        p1q2 = p1 * q2
+        p2q1 = p2 * q1
+        p1q2 == p2q1
+     end
 
     def pretty_print
         puts "<#{self.first_term.translation}, #{self.second_term.translation}>"
@@ -60,15 +74,8 @@ class Ordered_Pair
     def self.all_z
         @@all_z
     end
-end
 
-def z_add(x, y)
-    a, b = x.first_term, x.second_term
-    c, d = y.first_term, y.second_term
-    sum = Ordered_Pair.new(a+c, b+d)
-    puts sum.pretty_print
+    def self.all_q
+        @@all_q
+    end
 end
-#
-# puts Ordered_Pair.all_z.to_a.length
-
-#z_add(x,y)

@@ -1,9 +1,3 @@
-require_relative "./natura.rb"
-require_relative "./ordered_pairs.rb"
-require 'pry'
-require 'set'
-
-
 class Zahl
     @@all_zahlen = []
 
@@ -14,16 +8,6 @@ class Zahl
         @literal = eq_class
         @@all_zahlen << self
     end
-
-    # def self.construct_from_natural(n_obj)
-    #     Zahlen.new(Ordered_Pair.new(@zero, n_obj))
-    # end
-
-    #compare
-    #add
-    #subtract
-    #multiply
-    #negation
 
     def z_neg
         a = self.literal.to_a[0].first_term
