@@ -1,6 +1,6 @@
 require 'pry'
 require_relative './natura.rb'
-#require_relative './zahlen.rb'
+require_relative './zahlen.rb'
 
 class Ordered_Pair
 
@@ -8,32 +8,26 @@ class Ordered_Pair
     @@all_q = Set[]
     attr_reader :first_term, :second_term, :zahlen, :quoziente
 
-
-
-
     def initialize(term1, term2)
         @first_term, @second_term = term1, term2
         if term1.class == Natura and term2.class == Natura
-        #      @zahlen = Zahl.new(nil, self)
             idiot_var = true
-            @@all_z.each do |equi_cls| #every e is a Set
-
-                if self.zahl_equiv_relation(equi_cls.to_a[0])
-                    equi_cls << self unless self.first_term.literal == equi_cls.to_a[0].first_term.literal
+            @@all_z.each do |equi_cls| #every e is a zahl if it exists
+                if self.zahl_equiv_relation(equi_cls.literal.to_a[0])
+                    equi_cls.literal << self unless self.first_term.literal == equi_cls.literal.to_a[0].first_term.literal
+                    @zahlen = equi_cls
                     idiot_var = false
                     break
                 end
             end
             if idiot_var
-                @@all_z << Set[self]
+                z_translation = first_term.translation - second_term.translation
+                z = Zahl.new(z_translation, Set[self])
+                @zahlen = z
+                @@all_z << z
+                #Zahl.new(z_translation, Set[self])
             end
         end
-
-
-        #elsif term1.class == Zahl and term2.class == Zahl
-        #     @quoziente = Quoziente.new(nil, self)
-        #     @@all_q << self
-        # end
 
     end
 
@@ -46,6 +40,12 @@ class Ordered_Pair
     end
 
 
+    # def quoz_equivalent_relation(op2)
+    #     #check if selfterm1 * op2term2 == selfterm2 * op2term2
+    #     ad = self.first_term.z_mult(op2.second_term)
+    #     bc = self.second_term.z_mult(op2.first_term)
+    #     ad.literal == bc.literal
+    # end
 
     #every ordered pair of integers has an associated integer
 
@@ -62,20 +62,13 @@ class Ordered_Pair
     end
 end
 
-x = Ordered_Pair.new(Natura.new(0), Natura.new(2))
-y = Ordered_Pair.new(Natura.new(0), Natura.new(2))
-z = Ordered_Pair.new(Natura.new(1), Natura.new(0))
-Ordered_Pair.new(Natura.new(1), Natura.new(3))
-w = Ordered_Pair.new(Natura.new(2), Natura.new(4))
-Ordered_Pair.new(Natura.new(5), Natura.new(0))
-
 def z_add(x, y)
     a, b = x.first_term, x.second_term
     c, d = y.first_term, y.second_term
     sum = Ordered_Pair.new(a+c, b+d)
     puts sum.pretty_print
 end
-
-puts Ordered_Pair.all_z.to_a.length
+#
+# puts Ordered_Pair.all_z.to_a.length
 
 #z_add(x,y)

@@ -1,17 +1,24 @@
  #["./naturliche.rb", "./ordered_pairs.rb" "./zahlen.rb"].each {|file| require_relative file}
 require_relative './natura.rb'
+require_relative './ordered_pairs.rb'
+require_relative './zahlen.rb'
 
+#"OUR GOAL IS TO PROVE 0.1 + 0.2 = 0.3"
 
-#x = Natura.new(5) #24 is pretty big
-four = Natura.new(4)
-three = Natura.new(3)
-#seven = Natura.new(7)
-#nine = Natura.new(9)
- #sum = seven + nine
-#puts sum.translation
+z = Zahl.create(0)
+w = Zahl.create(1)
 
+a = Zahl.create(2)
+b = Zahl.create(4)
 
-puts (four + three).translation
+puts (b * b).translation
+
+puts (a * z).translation # => 0
+puts (a * w).translation # => 2
+puts (a + z).translation # => 2
+
+#puts Ordered_Pair.all_z.to_a.length # => 4 it works!
+#puts Zahl.all.map {|z|z.translation}
 
 #pair1 = Ordered_Pair.new(alpha, beta)
 #pair2 = Ordered_Pair.new(gamma, delta)
