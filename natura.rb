@@ -1,13 +1,13 @@
 require 'set'
 
 class Set
-def literal_successor
-    self.union(Set[self])
-end
+    def literal_successor
+        self.union(Set[self])
+    end
 
-def literal_predecessor
-    self.to_a.sort! {|s1, s2| s1 < s2 ? -1 : (s2 < s1 ? 1 : 0)}[-1]
-end
+    def literal_predecessor
+        self.to_a.sort! {|s1, s2| s1 < s2 ? -1 : (s2 < s1 ? 1 : 0)}[-1]
+    end
 
 end
 

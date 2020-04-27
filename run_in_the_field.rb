@@ -5,19 +5,6 @@ require_relative './ordered_pairs.rb'
 require_relative './zahlen.rb'
 require_relative './quoziente.rb'
 
-
-# x = Quoziente.create(1, 5)
-# puts x.translation
-# # a = Quoziente.create(2, 1)
-# y = Quoziente.create(1, 3)
-# puts y.translation
-# # puts x.translation
-# # puts a.translation
-#
-# z = x * y
-# w = z / y
-# puts w.translation
-
 def run
     puts "Hello. This program is like a Rube Goldberg machine."
     puts "I will set a variable, x, equal to 0.2."
@@ -33,11 +20,11 @@ def run
     puts "x * y is w, which is equal to #{z}."
     puts "z / y is #{z / y}."
     puts "It seems that x * y / y is not equal to x."
-    puts "boolean comparison: #{x == z / y}"
+    puts "boolean comparison of x == z / y: #{x == z / y}"
     puts "\n\n"
     puts "Quelle horreur."
     gets
-    puts "Let's try my way instead"
+    puts "Let's try another way instead"
     gets
     puts "I will set a variable, x, equal to 0.2."
     x = Quoziente.create(1, 5)
@@ -50,7 +37,7 @@ def run
     z = x * y
     w = z / y
     puts "Indeed, is #{x.translation} equal to #{w.translation} ?"
-    puts "Hooray! It worked!"
+    x.translation == w.translation ? (puts "Hooray! It worked!") : (puts "Oh, dear. this is embarrassing.")
     puts "Thank you for coming to my TED talk."
 end
 

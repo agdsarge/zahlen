@@ -8,16 +8,16 @@ class Ordered_Pair
     def initialize(term1, term2)
         @first_term, @second_term = term1, term2
         if term1.class == Natura and term2.class == Natura
-            idiot_var = true
+            switch = true
             @@all_z.each do |equi_cls| #every e.c. is a zahl if it exists
                 if self.zahl_equiv_relation(equi_cls.literal.to_a[0])
                     equi_cls.literal << self unless self.first_term.literal == equi_cls.literal.to_a[0].first_term.literal
                     @zahlen = equi_cls
-                    idiot_var = false
+                    switch = false
                     break
                 end
             end
-            if idiot_var
+            if switch
                 z_translation = self.first_term.translation - self.second_term.translation
                 z = Zahl.new(z_translation, Set[self])
                 @zahlen = z
@@ -26,16 +26,16 @@ class Ordered_Pair
         end
 
         if term1.class == Zahl and term2.class == Zahl and term2.translation != 0
-            idiot_var = true
+            switch = true
             @@all_q.each do |equi_cls| #if it exists, every e.c. is a quoziente
                 if self.quoz_equivalent_relation(equi_cls.literal.to_a[0])
                     equi_cls.literal << self unless self.first_term.literal == equi_cls.literal.to_a[0].first_term.literal
                     @quoziente = equi_cls
-                    idiot_var = false
+                    switch = false
                     break
                 end
             end
-            if idiot_var
+            if switch
                 q_translation = "#{self.first_term.translation} / #{self.second_term.translation}"
                 q = Quoziente.new(q_translation, Set[self])
                 @quoziente = q
