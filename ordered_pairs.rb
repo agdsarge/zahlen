@@ -1,8 +1,8 @@
 require 'pry'
 class Ordered_Pair
 
-    @@all_z = Set[]
-    @@all_q = Set[]
+    @@all_z = Construction_Set[]
+    @@all_q = Construction_Set[]
     attr_reader :first_term, :second_term, :zahlen, :quoziente
 
     def initialize(term1, term2)
@@ -10,6 +10,7 @@ class Ordered_Pair
         if term1.class == Natura and term2.class == Natura
             switch = true
             @@all_z.each do |equi_cls| #every e.c. is a zahl if it exists
+                # binding.pry
                 if self.zahl_equiv_relation(equi_cls.literal.to_a[0])
                     equi_cls.literal << self unless self.first_term.literal == equi_cls.literal.to_a[0].first_term.literal
                     @zahlen = equi_cls
@@ -19,7 +20,7 @@ class Ordered_Pair
             end
             if switch
                 z_translation = self.first_term.translation - self.second_term.translation
-                z = Zahl.new(z_translation, Set[self])
+                z = Zahl.new(z_translation, Construction_Set[self])
                 @zahlen = z
                 @@all_z << z
             end
@@ -37,7 +38,7 @@ class Ordered_Pair
             end
             if switch
                 q_translation = "#{self.first_term.translation} / #{self.second_term.translation}"
-                q = Quoziente.new(q_translation, Set[self])
+                q = Quoziente.new(q_translation, Construction_Set[self])
                 @quoziente = q
                 @@all_q << q
             end
@@ -47,8 +48,14 @@ class Ordered_Pair
     def zahl_equiv_relation(op2)
         #check if selfterm1 + op2term2 == selfterm2 + op2term1
         # given <a,b> ~ <c,d> => true if a + d == b + c
-        ad = self.first_term.n_add(op2.second_term)
-        bc = self.second_term.n_add(op2.first_term)
+
+        a = self.first_term
+        b = self.second_term
+        c = op2.first_term
+        d = op2.second_term
+        ad = a + d
+        bc = b + c
+        binding.pry
         ad.literal == bc.literal #q and w are separate instances, so we compare the literals
     end
 
