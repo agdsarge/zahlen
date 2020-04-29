@@ -6,27 +6,25 @@ require_relative './zahlen.rb'
 require_relative './quoziente.rb'
 
 def test
-    #this is a comment
+    n_keys = %i(zero one two three four five six seven eight nine ten)
+    z_keys = %i(zero n_one n_two n_three n_four n_five n_six n_seven n_eight n_nine n_ten)
+
+    nat_hash = {}; n_keys.each_with_index {|k, ind| nat_hash[k] = Natura.new(ind)}
+    zahl_hash = {}
+    n_keys.each_with_index { |k, ind| zahl_hash[k] = Ordered_Pair.new(nat_hash[k], nat_hash[:zero]).zahlen}
+    z_keys.each_with_index { |k, ind| zahl_hash[k] = Ordered_Pair.new(nat_hash[:zero], nat_hash[k]).zahlen}
+    #zero: Ordered_Pair.new(nat_hash[:one], nat_hash[:one]).zahlen
+
+
+    #puts zahl_hash[:zero].translation
+
     # a = Natura.new(10) #good
-     b = Natura.new(0)
-     c = Natura.new(1)
-    d = Natura.new(2)
-    e = Natura.new(13)
+    #puts (nat_hash[:three] * nat_hash[:four]).translation
+
+    #puts (zahl_hash[:three] * zahl_hash[:four]).translation
     # f = Natura.new(6)
 
-    # puts (a + b) == (b + a)
-    # puts (a * b) == (b * a)
-    # puts (a * c) == (c * a)
-    zer = Ordered_Pair.new(b, b).zahlen
-    n_eleven = Ordered_Pair.new(d, e).zahlen
 
-    puts (zer * n_eleven).translation
-
-    # tree = Ordered_Pair.new(a, b).zahlen #tree is Z 3
-    # puts "ONE DOWN"
-    # tree2 = Ordered_Pair.new(c, d).zahlen #tree is Z 3
-    # puts "HI"
-    # puts tree2.literal
 
 end
 

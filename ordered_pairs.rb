@@ -1,8 +1,8 @@
 require 'pry'
 class Ordered_Pair
 
-    @@all_z = Construction_Set[]
-    @@all_q = Construction_Set[]
+    @@all_z = CSt[]
+    @@all_q = CSt[]
     attr_reader :first_term, :second_term, :zahlen, :quoziente
 
     def initialize(term1, term2)
@@ -20,7 +20,7 @@ class Ordered_Pair
             end
             if switch
                 z_translation = self.first_term.translation - self.second_term.translation
-                z = Zahl.new(z_translation, Construction_Set[self])
+                z = Zahl.new(z_translation, CSt[self])
                 @zahlen = z
                 @@all_z << z
             end
@@ -38,7 +38,7 @@ class Ordered_Pair
             end
             if switch
                 q_translation = "#{self.first_term.translation} / #{self.second_term.translation}"
-                q = Quoziente.new(q_translation, Construction_Set[self])
+                q = Quoziente.new(q_translation, CSt[self])
                 @quoziente = q
                 @@all_q << q
             end
@@ -55,7 +55,6 @@ class Ordered_Pair
         d = op2.second_term
         ad = a + d
         bc = b + c
-        binding.pry
         ad.literal == bc.literal #q and w are separate instances, so we compare the literals
     end
 

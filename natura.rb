@@ -1,8 +1,8 @@
 require 'set'
 
-class Construction_Set < Set
+class CSt < Set #Construction_Set
     def literal_successor
-        self.union(Construction_Set[self])
+        self.union(CSt[self])
     end
 
     def literal_predecessor
@@ -20,7 +20,7 @@ end
 
 class Natura
     attr_reader :translation, :literal
-    @@all_literals = [Construction_Set[]] #P1. Zero is a natural number
+    @@all_literals = [CSt[]] #P1. Zero is a natural number
     @@all = []
     def initialize(translation=nil, literal=nil)
 
@@ -37,7 +37,7 @@ class Natura
             @translation = translation
             @literal = @@all_literals[translation]
         else
-            raise "Invalid input - arg2 type" unless literal.class == Construction_Set
+            raise "Invalid input - arg2 type" unless literal.class == CSt
             #@@all_literals is an array
             while !@@all_literals.include?(literal)
                 @@all_literals <<  @@all_literals[-1].literal_successor
@@ -51,7 +51,7 @@ class Natura
     def n_add(nat_b)
         raise "arg must be Natura" unless nat_b.class == Natura
         self.literal.include?(nat_b.literal) ? (sml, lrg = nat_b, self) : (sml, lrg = self, nat_b)
-        sml.literal == Construction_Set[] ? lrg : lrg.next.n_add(sml.previous)
+        sml.literal == CSt[] ? lrg : lrg.next.n_add(sml.previous)
     end
 
     def +(nat_b)
@@ -61,9 +61,9 @@ class Natura
     def n_multiply(nat_b)
         raise "arg must be Natura" unless nat_b.class == Natura
         self.literal.include?(nat_b.literal) ? (sml, lrg = nat_b, self) : (sml, lrg = self, nat_b)
-        if sml.literal == Construction_Set[]
+        if sml.literal == CSt[]
             return sml
-        elsif sml.literal == Construction_Set[Construction_Set[]]
+        elsif sml.literal == CSt[CSt[]]
             return lrg
         else
             lrg.n_add(lrg.n_multiply(sml.previous))
