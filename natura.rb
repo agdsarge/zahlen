@@ -6,6 +6,7 @@ class CSt < Set #Construction_Set
     end
 
     def literal_predecessor
+        raise "ERROR. NO Natural HAS 0 AS ITS SUCCESSOR" if self == CSt[]
         self.reduce {|mem, cst| mem < cst ?  mem = cst : mem}
     end
 
@@ -38,7 +39,7 @@ class Natura
             @translation = literal.length
             @literal = literal
         end
-        #@@all << self
+        # => @@all << self
     end
 
     def n_add(nat_b)
