@@ -12,14 +12,17 @@ def run
     puts "x is equal to #{x}, and it is a #{x.class}."
     puts "A number multiplied by one equals itself; 1 * n == n."
     puts "Furthermore, any number divided by itself equals 1; n/n = 1."
-    y = 3
+    y = 3.0
     puts "I will set a variable, y, equal to 3.0."
     puts "y is equal to #{y}, and it is a #{y.class}."
-    puts "Let's multiply x by y. We will call it w."
+    gets
+    puts "Let's multiply x by y. We will call it z."
     z = x*y
-    puts "x * y is w, which is equal to #{z}."
-    puts "z / y is #{z / y}."
-    puts "It seems that x * y / y is not equal to x."
+    puts "x * y is z, which is equal to #{z}."
+    puts "z / y is #{z / y}. \n\n"
+    puts "It seems that x * (y / y) is not equal to x."
+    puts "#{x} != #{z / y}"
+    puts "The severity of this error would collapse a bridge. It's unacceptable."
     puts "boolean comparison of x == z / y: #{x == z / y}"
     puts "\n\n"
     puts "Quelle horreur."

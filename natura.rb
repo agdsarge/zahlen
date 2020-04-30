@@ -6,22 +6,15 @@ class CSt < Set #Construction_Set
     end
 
     def literal_predecessor
-        self.to_a.sort! {|s1, s2| s1 < s2 ? -1 : (s2 < s1 ? 1 : 0)}[-1]
+        self.reduce {|mem, cst| mem < cst ?  mem = cst : mem}
     end
 
-    # def subset(c_set2) #returns the subset/sml c_set
-    #     c_set2.include?(self) ? self : c_set2
-    # end
-    #
-    # def superset(c_set2) #returns the super / lrg c_set
-    #     c_set2.include?(self) ? c_set2 : self
-    # end
 end
 
 class Natura
     attr_reader :translation, :literal
     @@all_literals = [CSt[]] #P1. Zero is a natural number
-    @@all = []
+    #@@all = []
     def initialize(translation=nil, literal=nil)
 
         raise "Invalid input - no args" unless translation or literal
@@ -45,13 +38,13 @@ class Natura
             @translation = literal.length
             @literal = literal
         end
-        @@all << self
+        #@@all << self
     end
 
     def n_add(nat_b)
         raise "arg must be Natura" unless nat_b.class == Natura
         self.literal.include?(nat_b.literal) ? (sml, lrg = nat_b, self) : (sml, lrg = self, nat_b)
-        sml.literal == CSt[] ? lrg : lrg.next.n_add(sml.previous)
+        sml.literal == CSt[] ? lrg : lrg.next.n_add(sml.previous) #recursive def of addition
     end
 
     def +(nat_b)
@@ -61,12 +54,12 @@ class Natura
     def n_multiply(nat_b)
         raise "arg must be Natura" unless nat_b.class == Natura
         self.literal.include?(nat_b.literal) ? (sml, lrg = nat_b, self) : (sml, lrg = self, nat_b)
-        if sml.literal == CSt[]
+        if sml.literal == CSt[] # n * 0 == 0
             return sml
-        elsif sml.literal == CSt[CSt[]]
+        elsif sml.literal == CSt[CSt[]] # n * 1 = n
             return lrg
         else
-            lrg.n_add(lrg.n_multiply(sml.previous))
+            lrg.n_add(lrg.n_multiply(sml.previous)) #recursive def. of multiplication
         end
     end
 

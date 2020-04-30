@@ -15,8 +15,8 @@ def test
     z_keys.each_with_index { |k, ind| zahl_hash[k] = Ordered_Pair.new(nat_hash[:zero], nat_hash[k]).zahlen}
     #zero: Ordered_Pair.new(nat_hash[:one], nat_hash[:one]).zahlen
 
+    puts (nat_hash[:three] * nat_hash[:three]).translation
 
-    #puts zahl_hash[:zero].translation
 
     # a = Natura.new(10) #good
     #puts (nat_hash[:three] * nat_hash[:four]).translation
